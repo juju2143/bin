@@ -1,0 +1,8 @@
+#!/bin/sh
+QT_QPA_PLATFORM=xcb
+SDL_VIDEODRIVER=x11
+CLUTTER_BACKEND=x11s
+
+base=$(basename $0)
+
+exec $(which -a $base | grep -v $0 | head -n1) $@

@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "inst 1" | nc -q1 localhost 9800 | rofi -dmenu -p midi | cut -d" " -f1 | sed "s/-/ /" | xargs midiprog

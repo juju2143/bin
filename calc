@@ -1,0 +1,5 @@
+#!/bin/sh
+subject=`rofi -dmenu -lines 0 -p calc`
+data=`echo "$subject" | xargs -i{} qjsbn -e "console.log({})"`
+notify-send -i /usr/share/icons/Adwaita/96x96/apps/accessories-calculator-symbolic.symbolic.png "$subject" "$data"
+echo -n $data | wl-copy

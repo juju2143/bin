@@ -1,0 +1,12 @@
+#!/bin/sh
+
+function run () {
+  res=$(ls -a | rofi -dmenu -p open -mesg "$PWD")
+  if [ -d "$res" ] ; then
+    cd "$res"
+    run
+  else
+    echo $PWD/$res
+  fi
+}
+run

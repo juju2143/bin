@@ -1,0 +1,10 @@
+#!/bin/sh
+slurp=`slurp -p`
+subject=`echo $slurp | cut -d " " -f1`
+pixel=`grim -g "$slurp" -t ppm -`
+data=`echo -n "$pixel" | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n1 | cut -d " " -f2-`
+file=`mktemp /tmp/tmpXXXX.png`
+echo -n "$pixel" | convert - -scale 10000% $file
+notify-send -i "$file" "$subject" "$data"
+rm $file
+echo -n $data | cut -d " " -f2 | wl-copy

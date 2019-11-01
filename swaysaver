@@ -1,0 +1,30 @@
+#!/bin/bash
+process() {
+	rm /tmp/swaysaver
+	while read line; do 
+		case "$line" in
+			UNBLANK*)
+				rm /tmp/swaysaver
+			;;
+			BLANK*)
+				touch /tmp/swaysaver
+				blank &
+			;;
+			RUN*)
+			;;
+			LOCK*)
+			;;
+		esac
+	done
+}
+
+blank() {
+	sleep 5
+	if [[ -f /tmp/swaysaver ]]
+	then
+		swaylock -c 00000000
+		[[ $? == 0 ]] && xscreensaver-command -deactivate
+	fi
+}
+
+xscreensaver-command -watch | process
