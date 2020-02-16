@@ -1,0 +1,33 @@
+#!/bin/sh
+DMENU="rofi -dmenu"
+
+emojifile=/usr/share/unicode/emoji/emoji-test.txt
+
+category=$(grep -E '^# group:' $emojifile | cut -d: -f2 | $DMENU -p category)
+
+[ "$?" == "1" ] && exit
+
+line=$(awk -v RS='# group:' "/$category/" /usr/share/unicode/emoji/emoji-test.txt \
+	| grep -Ev '^[# ]' \
+	| grep -v unqualified \
+	| grep -v '^$' \
+	| sed 's/ \{2,\}//g' \
+	| sed 's/;.*#/ #/g' \
+	| sed 's/ E[0-9]*\.[0-9]//g' \
+	| $DMENU -p emoji)
+
+if [ "$?" == "1" ]
+then
+	$0 $@
+	exit
+fi
+
+emoji=''
+
+for i in $(echo $line | cut -d# -f1)
+do
+	emoji=$emoji"\U$i"
+done
+
+wl-copy -p $(echo -ne $emoji)
+echo -ne $emoji
