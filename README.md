@@ -125,6 +125,21 @@ exec swaysaver
 
 Based on some example code from `xscreensaver`, its licence might apply instead.
 
+## emojipicker
+
+It's just a simple emoji picker. Select your emoji, paste it with the middle button of your mouse.
+
+### Requirements
+
+unicode-emoji (provides the emoji database), [wl-clipboard](https://github.com/bugaevc/wl-clipboard)
+
+### Usage
+
+Just put this as a binding in your sway or waybar config:
+```sh
+emojipicker
+```
+
 # Licence
 
 All original code licenced under LiLiQ-P 1.1. If you liked this software, [buy me a beer](https://patreon.com/juju2143) :)

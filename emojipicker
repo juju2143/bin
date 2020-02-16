@@ -9,7 +9,7 @@ category=$(grep -E '^# group:' $emojifile | cut -d: -f2 | $DMENU -p category)
 
 line=$(awk -v RS='# group:' "/$category/" /usr/share/unicode/emoji/emoji-test.txt \
 	| grep -Ev '^[# ]' \
-	| grep -v unqualified \
+	| grep -E "(fully-qualified|component)" \
 	| grep -v '^$' \
 	| sed 's/ \{2,\}//g' \
 	| sed 's/;.*#/ #/g' \
